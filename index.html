@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLAMBRO – Chuť ohně</title>
+  <meta name="description" content="Flambro – příslušenství ke grilování s duší. Ručně vyráběné dřevěné truhlíky na bylinky a rostliny. Uherský Brod." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --fire:   #D44E1A;
+      --ember:  #E8701A;
+      --coal:   #111010;
+      --ash:    #1E1C1B;
+      --bark:   #2B2724;
+      --cream:  #F2EBE0;
+      --warm:   #C4B49F;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Crimson Pro', Georgia, serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--coal); color: var(--cream);
+      font-family: var(--font-body); font-size: 18px; line-height: 1.7; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% -10%, rgba(212,78,26,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(232,112,26,.06) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: rgba(17,16,16,.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,78,26,.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .nav-logo svg { width: 28px; height: 28px; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: .12em; color: var(--cream); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--fire); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 8rem 2rem 6rem; position: relative;
+    }
+    .hero-flame {
+      width: 110px; height: 110px; margin-bottom: 1.8rem;
+      animation: flicker 3s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 28px rgba(212,78,26,.55));
+    }
+    @keyframes flicker {
+      0%   { transform: scaleX(1)    scaleY(1)    rotate(-1deg); filter: drop-shadow(0 0 28px rgba(212,78,26,.55)); }
+      30%  { transform: scaleX(.97)  scaleY(1.02) rotate(.5deg); }
+      60%  { transform: scaleX(1.02) scaleY(.98)  rotate(-.5deg); }
+      100% { transform: scaleX(.98)  scaleY(1.01) rotate(1deg);  filter: drop-shadow(0 0 42px rgba(232,112,26,.7)); }
+    }
+    .hero-brand {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 14vw, 10rem);
+      letter-spacing: .15em; line-height: 1; color: var(--cream);
+      text-shadow: 0 0 60px rgba(212,78,26,.3); animation: fadeUp .9s ease both;
+    }
+    .hero-sub {
+      font-family: var(--font-display); font-size: clamp(1rem, 3vw, 1.6rem);
+      letter-spacing: .45em; color: var(--fire); margin-top: .4rem;
+      animation: fadeUp .9s .15s ease both;
+    }
+    .hero-tagline {
+      margin-top: 2.5rem; max-width: 520px; font-size: 1.15rem;
+      color: var(--warm); font-style: italic; animation: fadeUp .9s .3s ease both;
+    }
+    .hero-cta {
+      margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center; animation: fadeUp .9s .45s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block; font-family: var(--font-display); font-size: 1rem;
+      letter-spacing: .12em; text-decoration: none; padding: .9rem 2.4rem;
+      border-radius: 2px; transition: all .22s ease; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--fire); color: #fff; box-shadow: 0 4px 22px rgba(212,78,26,.4); }
+    .btn-primary:hover { background: var(--ember); box-shadow: 0 6px 30px rgba(212,78,26,.6); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--cream); border: 1.5px solid rgba(194,164,130,.4); }
+    .btn-outline:hover { border-color: var(--fire); color: var(--fire); transform: translateY(-2px); }
+
+    .divider { width: 60px; height: 2px; background: var(--fire); margin: 1.5rem auto; opacity: .7; }
+    section { position: relative; z-index: 1; }
+    .section-inner { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-family: var(--font-display); font-size: .85rem; letter-spacing: .4em; color: var(--fire); display: block; margin-bottom: .5rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem); letter-spacing: .08em; color: var(--cream); line-height: 1.05; }
+    .section-body { font-size: 1.1rem; color: var(--warm); max-width: 640px; }
+
+    /* O NÁS */
+    #o-nas { background: var(--ash); border-top: 1px solid rgba(212,78,26,.1); border-bottom: 1px solid rgba(212,78,26,.1); }
+    #o-nas .section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .o-nas-values { display: flex; flex-direction: column; gap: 1.4rem; }
+    .value-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .value-icon { font-size: 1.4rem; line-height: 1; padding-top: .2rem; flex-shrink: 0; }
+    .value-item h4 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: .06em; color: var(--cream); margin-bottom: .15rem; }
+    .value-item p { font-size: 1rem; color: var(--warm); }
+
+    /* GALERIE */
+    .gallery-wrap { }
+    .gallery-main {
+      width: 100%; aspect-ratio: 16/9; overflow: hidden;
+      background: var(--bark); position: relative;
+      border-radius: 4px 4px 0 0;
+    }
+    .gallery-main img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .4s ease; cursor: zoom-in;
+    }
+    .gallery-main img:hover { transform: scale(1.03); }
+    .gallery-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: .8rem; color: var(--warm); opacity: .3;
+    }
+    .gallery-placeholder svg { width: 56px; }
+    .gallery-placeholder span { font-family: var(--font-display); letter-spacing: .1em; font-size: .9rem; }
+    .gallery-thumbs { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; margin-top: 4px; }
+    .gallery-thumb {
+      aspect-ratio: 4/3; overflow: hidden; cursor: pointer;
+      background: var(--bark); position: relative;
+    }
+    .gallery-thumb:first-child { border-radius: 0 0 0 4px; }
+    .gallery-thumb:last-child  { border-radius: 0 0 4px 0; }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s, opacity .3s; opacity: .75; }
+    .gallery-thumb:hover img { transform: scale(1.07); opacity: 1; }
+    .thumb-more {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(17,16,16,.6); font-family: var(--font-display); font-size: 1.6rem;
+      letter-spacing: .05em; color: var(--cream);
+    }
+
+    /* PRODUCT */
+    .product-card { background: var(--ash); border: 1px solid rgba(212,78,26,.15); border-radius: 4px; overflow: hidden; margin-top: 3rem; }
+    .product-body { padding: 2.5rem 3rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+    .product-name { font-family: var(--font-display); font-size: clamp(1.6rem,4vw,2.4rem); letter-spacing: .06em; color: var(--cream); margin-bottom: .6rem; }
+    .product-desc { font-size: 1.05rem; color: var(--warm); max-width: 520px; }
+    .product-features { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+    .feature-tag { font-size: .8rem; font-family: var(--font-display); letter-spacing: .1em; padding: .3rem .9rem; border: 1px solid rgba(212,78,26,.35); color: var(--fire); border-radius: 2px; }
+    .product-specs { background: var(--bark); border-radius: 3px; padding: 1.4rem 1.6rem; min-width: 220px; }
+    .spec-row { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid rgba(212,78,26,.1); font-size: .95rem; }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-label { color: var(--warm); }
+    .spec-val { color: var(--cream); font-weight: 600; text-align: right; }
+    .price-block { margin-top: 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .price { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: .06em; color: var(--fire); }
+    .price small { font-size: 1rem; color: var(--warm); font-family: var(--font-body); letter-spacing: 0; }
+    .note { margin-top: 1.2rem; font-size: .95rem; font-style: italic; color: var(--warm); opacity: .75; }
+
+    /* KONTAKT */
+    #kontakt { background: var(--ash); border-top: 1px solid rgba(212,78,26,.1); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+    .contact-method { display: flex; flex-direction: column; gap: 1.6rem; }
+    .contact-item { display: flex; gap: 1.1rem; align-items: flex-start; }
+    .contact-icon { width: 42px; height: 42px; border: 1.5px solid rgba(212,78,26,.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; color: var(--fire); }
+    .contact-item-content h4 { font-family: var(--font-display); font-size: 1rem; letter-spacing: .1em; color: var(--cream); }
+    .contact-item-content a, .contact-item-content p { color: var(--warm); text-decoration: none; font-size: 1rem; transition: color .2s; }
+    .contact-item-content a:hover { color: var(--fire); }
+    .contact-info-box { background: var(--bark); border: 1px solid rgba(212,78,26,.15); border-radius: 4px; padding: 2.5rem; }
+    .contact-info-box h3 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .08em; color: var(--cream); margin-bottom: 1rem; }
+    .contact-info-box p { font-size: 1rem; color: var(--warm); line-height: 1.8; }
+    .contact-info-box .highlight { color: var(--fire); font-style: italic; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2.5rem 2rem; background: #0C0B0B; border-top: 1px solid rgba(212,78,26,.1); }
+    .footer-logo { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .2em; color: var(--warm); display: flex; align-items: center; justify-content: center; gap: .5rem; margin-bottom: .6rem; }
+    .footer-logo svg { width: 22px; }
+    footer p { font-size: .85rem; color: rgba(194,164,130,.4); letter-spacing: .05em; }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,9,9,.95); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    #lightbox.open { display: flex; }
+    .lb-inner { position: relative; max-width: 1100px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+    #lb-img { max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 3px; box-shadow: 0 0 60px rgba(0,0,0,.8); animation: lbIn .22s ease; }
+    @keyframes lbIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+    .lb-controls { display: flex; gap: 1rem; align-items: center; }
+    .lb-btn { background: rgba(212,78,26,.15); border: 1.5px solid rgba(212,78,26,.35); color: var(--cream); font-size: 1.4rem; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s; }
+    .lb-btn:hover { background: var(--fire); border-color: var(--fire); }
+    .lb-counter { font-family: var(--font-display); letter-spacing: .12em; color: var(--warm); font-size: 1rem; min-width: 4rem; text-align: center; }
+    .lb-close { position: absolute; top: -3rem; right: 0; background: none; border: none; color: var(--warm); font-size: 2.2rem; cursor: pointer; line-height: 1; transition: color .2s; padding: 0; }
+    .lb-close:hover { color: var(--fire); }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: .8rem; }
+      #o-nas .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .product-body { grid-template-columns: 1fr; padding: 1.8rem; }
+      .product-specs { min-width: unset; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gallery-main { aspect-ratio: 4/3; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Prohlížeč fotografií">
+  <div class="lb-inner">
+    <button class="lb-close" id="lb-close" aria-label="Zavřít">&#xD7;</button>
+    <img id="lb-img" src="" alt="Fotografie produktu" />
+    <div class="lb-controls">
+      <button class="lb-btn" id="lb-prev" aria-label="Předchozí">&#8592;</button>
+      <span class="lb-counter" id="lb-counter">1 / 1</span>
+      <button class="lb-btn" id="lb-next" aria-label="Další">&#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">
+    <svg viewBox="0 0 60 72" fill="none">
+      <path d="M30 2C30 2 14 20 14 36C14 44.837 21.163 52 30 52C38.837 52 46 44.837 46 36C46 28 38 22 38 22C38 22 40 30 34 34C34 34 36 24 30 18C30 18 28 28 22 30C22 30 22 20 30 2Z" fill="#D44E1A"/>
+      <path d="M30 40C30 40 24 36 24 42C24 45.314 26.686 48 30 48C33.314 48 36 45.314 36 42C36 38 32 36 32 36C32 36 32 40 30 40Z" fill="#E8701A"/>
+    </svg>
+    <span class="nav-logo-text">FLAMBRO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#prislusenstvi">Příslušenství</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-flame" viewBox="0 0 60 72" fill="none">
+    <path d="M30 2C30 2 14 20 14 36C14 44.837 21.163 52 30 52C38.837 52 46 44.837 46 36C46 28 38 22 38 22C38 22 40 30 34 34C34 34 36 24 30 18C30 18 28 28 22 30C22 30 22 20 30 2Z" fill="#D44E1A"/>
+    <path d="M30 40C30 40 24 36 24 42C24 45.314 26.686 48 30 48C33.314 48 36 45.314 36 42C36 38 32 36 32 36C32 36 32 40 30 40Z" fill="#E8701A"/>
+  </svg>
+  <h1 class="hero-brand">FLAMBRO</h1>
+  <p class="hero-sub">Chuť ohně</p>
+  <p class="hero-tagline">
+    Věci, které vznikají ručně – kus po kusu. Žádná sériová výroba,<br>
+    žádné úplně stejné kusy. Jen to, co nám zrovna dává smysl.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#prislusenstvi">Zobrazit příslušenství</a>
+    <a class="btn btn-outline" href="#kontakt">Napsat nám</a>
+  </div>
+</section>
+
+<!-- O NÁS -->
+<section id="o-nas">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">O nás</span>
+      <h2 class="section-title">Jsme<br>FLAMBRO.</h2>
+      <div class="divider" style="margin:1.2rem 0;"></div>
+      <p class="section-body">
+        Začínali jsme s grily. Dnes nabízíme příslušenství ke grilování a věci do domácnosti,
+        které vznikají ručně a s hlavou. Grily jsme odložili – ale oheň v nás nevyhasl.
+        Flambro je stále o tom, co dává smysl. Co sami používáme. Co se vyrábí postupně, bez kompromisů.
+      </p>
+    </div>
+    <div class="o-nas-values reveal">
+      <div class="value-item">
+        <div class="value-icon">🪵</div>
+        <div><h4>Ruční výroba</h4><p>Žádná linka. Každý kus prochází rukama, ne strojem.</p></div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🔥</div>
+        <div><h4>Podle sebe</h4><p>Vyrábíme věci, které sami reálně používáme u ohně i doma.</p></div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🌿</div>
+        <div><h4>Postupně</h4><p>Nabídka roste organicky – jen to, co má smysl a co děláme dobře.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PŘÍSLUŠENSTVÍ -->
+<section id="prislusenstvi">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Příslušenství</span>
+      <h2 class="section-title">Co teď nabízíme</h2>
+      <div class="divider" style="margin:1.2rem 0 0;"></div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="gallery-wrap">
+        <div class="gallery-main" id="gallery-main">
+          <div class="gallery-placeholder" id="gallery-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            <span>fotografie brzy</span>
+          </div>
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs" style="display:none;"></div>
+      </div>
+
+      <div class="product-body">
+        <div>
+          <h3 class="product-name">Dřevěný truhlík<br>na rostliny</h3>
+          <p class="product-desc">
+            Masivní dřevěný truhlík pro bylinky, okrasné rostliny nebo muškáty.
+            Navržený tak, aby rostliny nebyly schované na parapetu, ale měly své místo tam,
+            kde dávají smysl – v kuchyni, na baru, terase nebo u kavárny.
+          </p>
+          <p class="product-desc" style="margin-top:.8rem;">
+            Vnitřek je vyložen nepropustnou plachtou, která odděluje zeminu od dřeva,
+            spoje jsou přetěsněny silikonem. Truhlík je odolnější a trvanlivější
+            než běžné dřevěné bedýnky.
+          </p>
+          <div class="product-features">
+            <span class="feature-tag">Masivní dřevo</span>
+            <span class="feature-tag">Lazura</span>
+            <span class="feature-tag">4 sekce</span>
+            <span class="feature-tag">Vnitřní ochrana</span>
+            <span class="feature-tag">Interiér / krytý exteriér</span>
+            <span class="feature-tag">Ruční výroba</span>
+          </div>
+          <div class="price-block">
+            <div class="price">od 400 Kč <small>/ kus</small></div>
+            <a class="btn btn-primary" href="#kontakt">Mám zájem</a>
+          </div>
+          <p class="note">* Cena bez dopravy. Každý kus je originál – kresba a odstín dřeva se může mírně lišit.</p>
+        </div>
+        <div class="product-specs">
+          <div class="spec-row"><span class="spec-label">Rozměry</span><span class="spec-val">23 × 48 × 22 cm</span></div>
+          <div class="spec-row"><span class="spec-label">Sekce</span><span class="spec-val">4 × (20 × 9 cm)</span></div>
+          <div class="spec-row"><span class="spec-label">Materiál</span><span class="spec-val">Masivní dřevo</span></div>
+          <div class="spec-row"><span class="spec-label">Povrch</span><span class="spec-val">Lazura</span></div>
+          <div class="spec-row"><span class="spec-label">Ochrana vnit.</span><span class="spec-val">Plachta + silikon</span></div>
+          <div class="spec-row"><span class="spec-label">Určení</span><span class="spec-val">Interiér / krytý ext.</span></div>
+          <div class="spec-row"><span class="spec-label">Výroba</span><span class="spec-val">Ručně</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note reveal" style="text-align:center; margin-top:2rem;">
+      Do budoucna se mohou objevit další doplňky – vždy jen to, co sami používáme a co dává smysl.
+    </p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Kontakt</span>
+      <h2 class="section-title">Máš zájem?<br>Napiš nám.</h2>
+      <div class="divider" style="margin:1.2rem 0 0;"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-method reveal">
+        <div class="contact-item">
+          <div class="contact-icon">&#9993;</div>
+          <div class="contact-item-content">
+            <h4>E-mail</h4>
+            <a href="mailto:flambro@email.cz">flambro@email.cz</a>
+            <p style="font-size:.9rem;margin-top:.2rem;">Preferujeme e-mailovou korespondenci.</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9990;</div>
+          <div class="contact-item-content">
+            <h4>Telefon / SMS</h4>
+            <a href="tel:+420735025755">+420 735 025 755</a>
+            <p style="font-size:.9rem;margin-top:.2rem;">Prosím SMS, odpíšeme co nejdříve.</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#128205;</div>
+          <div class="contact-item-content">
+            <h4>Osobní odběr</h4>
+            <p>Uherský Brod</p>
+            <p style="font-size:.9rem;margin-top:.2rem;">Po dohodě, vždy individuálně.</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-info-box reveal">
+        <h3>Jak to funguje</h3>
+        <p>
+          Napiš nám e-mailem nebo SMS, co tě zajímá a kolik kusů bys chtěl.
+          Mrkneme, co máme aktuálně k dispozici, a domluvíme se.<br><br>
+          Dopravu zajistíme přes <span class="highlight">DPD, PPL nebo Zásilkovnu</span>.
+          Platbu za zboží i poštovné požadujeme předem.<br><br>
+          Nebo si přijď pro truhlíky osobně do <span class="highlight">Uherského Brodu</span> –
+          domluvíme termín, rádi se potkáme.
+        </p>
+        <div style="margin-top:1.8rem;">
+          <a class="btn btn-primary" href="mailto:flambro@email.cz">Napsat e-mail</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 60 72" fill="none">
+      <path d="M30 2C30 2 14 20 14 36C14 44.837 21.163 52 30 52C38.837 52 46 44.837 46 36C46 28 38 22 38 22C38 22 40 30 34 34C34 34 36 24 30 18C30 18 28 28 22 30C22 30 22 20 30 2Z" fill="#D44E1A"/>
+      <path d="M30 40C30 40 24 36 24 42C24 45.314 26.686 48 30 48C33.314 48 36 45.314 36 42C36 38 32 36 32 36C32 36 32 40 30 40Z" fill="#E8701A"/>
+    </svg>
+    FLAMBRO
+  </div>
+  <p>&#169; 2026 Flambro &ndash; Chuť ohně &middot; Uherský Brod</p>
+</footer>
+
+<script>
+// ── GALERIE + LIGHTBOX ──────────────────────────────────────────────
+let allPhotos = [];
+let lbIndex   = 0;
+
+async function loadGallery() {
+  try {
+    const res = await fetch('bedynky/photos.json');
+    if (!res.ok) return;
+    const list = await res.json();
+    if (!list || list.length === 0) return;
+    allPhotos = list.map(n => 'bedynky/' + n);
+    buildGallery();
+  } catch { /* soubor neexistuje – zůstane placeholder */ }
+}
+
+function buildGallery() {
+  const mainEl   = document.getElementById('gallery-main');
+  const thumbsEl = document.getElementById('gallery-thumbs');
+  document.getElementById('gallery-placeholder').remove();
+
+  // Hlavní fotka
+  const mainImg = document.createElement('img');
+  mainImg.src = allPhotos[0];
+  mainImg.alt = 'Dřevěný truhlík Flambro';
+  mainImg.addEventListener('click', () => openLightbox(0));
+  mainEl.appendChild(mainImg);
+
+  // Max 3 miniatury (fotky 1–3)
+  if (allPhotos.length > 1) {
+    const count = Math.min(allPhotos.length - 1, 3);
+    thumbsEl.style.display = 'grid';
+    for (let i = 0; i < count; i++) {
+      const idx   = i + 1;
+      const div   = document.createElement('div');
+      div.className = 'gallery-thumb';
+      const img   = document.createElement('img');
+      img.src = allPhotos[idx];
+      img.alt = 'Truhlík Flambro – foto ' + (idx + 1);
+      div.appendChild(img);
+      // Přebývající fotky: badge na poslední miniaturě
+      if (i === count - 1 && allPhotos.length > 4) {
+        const badge = document.createElement('div');
+        badge.className = 'thumb-more';
+        badge.textContent = '+' + (allPhotos.length - 4);
+        div.appendChild(badge);
+      }
+      div.addEventListener('click', () => openLightbox(idx));
+      thumbsEl.appendChild(div);
+    }
+  }
+}
+
+function openLightbox(index) {
+  lbIndex = index;
+  renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function renderLb() {
+  const img = document.getElementById('lb-img');
+  img.src   = allPhotos[lbIndex];
+  img.alt   = 'Flambro truhlík – foto ' + (lbIndex + 1);
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + allPhotos.length;
+}
+function lbPrev() { lbIndex = (lbIndex - 1 + allPhotos.length) % allPhotos.length; renderLb(); }
+function lbNext() { lbIndex = (lbIndex + 1) % allPhotos.length; renderLb(); }
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', lbPrev);
+document.getElementById('lb-next').addEventListener('click', lbNext);
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  lbPrev();
+  if (e.key === 'ArrowRight') lbNext();
+});
+
+loadGallery();
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+</script>
+</body>
+</html>
