@@ -3,8 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FLAMBRO – Chuť ohně</title>
-  <meta name="description" content="Flambro – příslušenství ke grilování s duší. Ručně vyráběné dřevěné truhlíky na bylinky a rostliny. Uherský Brod." />
+
+  <!-- SEO -->
+  <title>FLAMBRO – Příslušenství ke grilování | Uherský Brod</title>
+  <meta name="description" content="Flambro – ručně vyráběné příslušenství ke grilování z Uherského Brodu. Dřevěné truhlíky na bylinky a rostliny, ideální ke grilu i do kuchyně. Osobní odběr UB, doprava ČR." />
+  <meta name="keywords" content="příslušenství ke grilování Uherský Brod, gril Uherský Brod, dřevěné truhlíky bylinky, bedýnky na rostliny, ruční výroba gril, Flambro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://flambro.cz/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://flambro.cz/" />
+  <meta property="og:title"       content="FLAMBRO – Příslušenství ke grilování | Uherský Brod" />
+  <meta property="og:description" content="Ručně vyráběné příslušenství ke grilování z Uherského Brodu. Dřevěné truhlíky na bylinky a rostliny ke grilu i do kuchyně." />
+  <meta property="og:locale"      content="cs_CZ" />
+
+  <!-- Structured data – LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Flambro",
+    "description": "Ručně vyráběné příslušenství ke grilování a do domácnosti.",
+    "url": "https://flambro.cz",
+    "email": "flambro@email.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Uherský Brod",
+      "addressCountry": "CZ"
+    },
+    "areaServed": "CZ",
+    "priceRange": "Kč"
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -19,6 +51,7 @@
       --bark:   #2B2724;
       --cream:  #F2EBE0;
       --warm:   #C4B49F;
+      --max:    1100px;
       --font-display: 'Bebas Neue', sans-serif;
       --font-body:    'Crimson Pro', Georgia, serif;
     }
@@ -35,29 +68,49 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 2.5rem;
-      background: rgba(17,16,16,.88); backdrop-filter: blur(12px);
+      background: rgba(17,16,16,.9); backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(212,78,26,.15);
     }
-    .nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
-    .nav-logo svg { width: 28px; height: 28px; }
-    .nav-logo-text { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: .12em; color: var(--cream); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); text-decoration: none; transition: color .2s; }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+    }
+    .nav-logo { display: flex; align-items: center; gap: .55rem; text-decoration: none; }
+    .nav-logo svg { width: 26px; height: 26px; }
+    .nav-logo-text { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .14em; color: var(--cream); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--fire); }
 
-    /* HERO */
+    /* hide nav links on mobile */
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── SCROLL-TO-TOP BUTTON ── */
+    #totop {
+      position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 200;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--fire); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 18px rgba(212,78,26,.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s, background .2s;
+    }
+    #totop.visible { opacity: 1; pointer-events: auto; }
+    #totop:hover { background: var(--ember); transform: translateY(-3px); }
+    #totop svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2.5; fill: none; }
+
+    /* ── HERO ── */
     #hero {
       min-height: 100vh; display: flex; flex-direction: column;
       justify-content: center; align-items: center; text-align: center;
       padding: 8rem 2rem 6rem; position: relative;
     }
     .hero-flame {
-      width: 110px; height: 110px; margin-bottom: 1.8rem;
+      width: 100px; height: 100px; margin-bottom: 1.6rem;
       animation: flicker 3s ease-in-out infinite alternate;
       filter: drop-shadow(0 0 28px rgba(212,78,26,.55));
     }
@@ -68,8 +121,7 @@
       100% { transform: scaleX(.98)  scaleY(1.01) rotate(1deg);  filter: drop-shadow(0 0 42px rgba(232,112,26,.7)); }
     }
     .hero-brand {
-      font-family: var(--font-display);
-      font-size: clamp(4.5rem, 14vw, 10rem);
+      font-family: var(--font-display); font-size: clamp(4.5rem, 14vw, 10rem);
       letter-spacing: .15em; line-height: 1; color: var(--cream);
       text-shadow: 0 0 60px rgba(212,78,26,.3); animation: fadeUp .9s ease both;
     }
@@ -91,7 +143,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* BUTTONS */
+    /* ── BUTTONS ── */
     .btn {
       display: inline-block; font-family: var(--font-display); font-size: 1rem;
       letter-spacing: .12em; text-decoration: none; padding: .9rem 2.4rem;
@@ -102,14 +154,13 @@
     .btn-outline { background: transparent; color: var(--cream); border: 1.5px solid rgba(194,164,130,.4); }
     .btn-outline:hover { border-color: var(--fire); color: var(--fire); transform: translateY(-2px); }
 
-    .divider { width: 60px; height: 2px; background: var(--fire); margin: 1.5rem auto; opacity: .7; }
+    .divider { width: 60px; height: 2px; background: var(--fire); margin: 1.5rem 0; opacity: .7; }
     section { position: relative; z-index: 1; }
-    .section-inner { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-inner { max-width: var(--max); margin: 0 auto; padding: 5rem 2rem; }
     .section-label { font-family: var(--font-display); font-size: .85rem; letter-spacing: .4em; color: var(--fire); display: block; margin-bottom: .5rem; }
     .section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem); letter-spacing: .08em; color: var(--cream); line-height: 1.05; }
-    .section-body { font-size: 1.1rem; color: var(--warm); max-width: 640px; }
 
-    /* O NÁS */
+    /* ── O NÁS ── */
     #o-nas { background: var(--ash); border-top: 1px solid rgba(212,78,26,.1); border-bottom: 1px solid rgba(212,78,26,.1); }
     #o-nas .section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .o-nas-values { display: flex; flex-direction: column; gap: 1.4rem; }
@@ -118,40 +169,33 @@
     .value-item h4 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: .06em; color: var(--cream); margin-bottom: .15rem; }
     .value-item p { font-size: 1rem; color: var(--warm); }
 
-    /* GALERIE */
+    /* ── GALERIE ── */
     .gallery-wrap { }
     .gallery-main {
       width: 100%; aspect-ratio: 16/9; overflow: hidden;
-      background: var(--bark); position: relative;
-      border-radius: 4px 4px 0 0;
+      background: var(--bark); position: relative; border-radius: 4px 4px 0 0;
     }
-    .gallery-main img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform .4s ease; cursor: zoom-in;
-    }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; cursor: zoom-in; }
     .gallery-main img:hover { transform: scale(1.03); }
     .gallery-placeholder {
       width: 100%; height: 100%; display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: .8rem; color: var(--warm); opacity: .3;
     }
-    .gallery-placeholder svg { width: 56px; }
-    .gallery-placeholder span { font-family: var(--font-display); letter-spacing: .1em; font-size: .9rem; }
+    .gallery-placeholder svg { width: 52px; }
+    .gallery-placeholder span { font-family: var(--font-display); letter-spacing: .1em; font-size: .85rem; }
     .gallery-thumbs { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; margin-top: 4px; }
-    .gallery-thumb {
-      aspect-ratio: 4/3; overflow: hidden; cursor: pointer;
-      background: var(--bark); position: relative;
-    }
+    .gallery-thumb { aspect-ratio: 4/3; overflow: hidden; cursor: pointer; background: var(--bark); position: relative; }
     .gallery-thumb:first-child { border-radius: 0 0 0 4px; }
     .gallery-thumb:last-child  { border-radius: 0 0 4px 0; }
     .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s, opacity .3s; opacity: .75; }
     .gallery-thumb:hover img { transform: scale(1.07); opacity: 1; }
     .thumb-more {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: rgba(17,16,16,.6); font-family: var(--font-display); font-size: 1.6rem;
+      background: rgba(17,16,16,.62); font-family: var(--font-display); font-size: 1.6rem;
       letter-spacing: .05em; color: var(--cream);
     }
 
-    /* PRODUCT */
+    /* ── PRODUCT ── */
     .product-card { background: var(--ash); border: 1px solid rgba(212,78,26,.15); border-radius: 4px; overflow: hidden; margin-top: 3rem; }
     .product-body { padding: 2.5rem 3rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
     .product-name { font-family: var(--font-display); font-size: clamp(1.6rem,4vw,2.4rem); letter-spacing: .06em; color: var(--cream); margin-bottom: .6rem; }
@@ -162,13 +206,13 @@
     .spec-row { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px solid rgba(212,78,26,.1); font-size: .95rem; }
     .spec-row:last-child { border-bottom: none; }
     .spec-label { color: var(--warm); }
-    .spec-val { color: var(--cream); font-weight: 600; text-align: right; }
+    .spec-val   { color: var(--cream); font-weight: 600; text-align: right; }
     .price-block { margin-top: 2rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
     .price { font-family: var(--font-display); font-size: 2.4rem; letter-spacing: .06em; color: var(--fire); }
     .price small { font-size: 1rem; color: var(--warm); font-family: var(--font-body); letter-spacing: 0; }
     .note { margin-top: 1.2rem; font-size: .95rem; font-style: italic; color: var(--warm); opacity: .75; }
 
-    /* KONTAKT */
+    /* ── KONTAKT ── */
     #kontakt { background: var(--ash); border-top: 1px solid rgba(212,78,26,.1); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
     .contact-method { display: flex; flex-direction: column; gap: 1.6rem; }
@@ -182,13 +226,13 @@
     .contact-info-box p { font-size: 1rem; color: var(--warm); line-height: 1.8; }
     .contact-info-box .highlight { color: var(--fire); font-style: italic; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { text-align: center; padding: 2.5rem 2rem; background: #0C0B0B; border-top: 1px solid rgba(212,78,26,.1); }
     .footer-logo { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .2em; color: var(--warm); display: flex; align-items: center; justify-content: center; gap: .5rem; margin-bottom: .6rem; }
     .footer-logo svg { width: 22px; }
     footer p { font-size: .85rem; color: rgba(194,164,130,.4); letter-spacing: .05em; }
 
-    /* LIGHTBOX */
+    /* ── LIGHTBOX ── */
     #lightbox {
       position: fixed; inset: 0; z-index: 999;
       background: rgba(10,9,9,.95); backdrop-filter: blur(8px);
@@ -205,17 +249,14 @@
     .lb-close { position: absolute; top: -3rem; right: 0; background: none; border: none; color: var(--warm); font-size: 2.2rem; cursor: pointer; line-height: 1; transition: color .2s; padding: 0; }
     .lb-close:hover { color: var(--fire); }
 
-    /* SCROLL REVEAL */
+    /* ── REVEAL ── */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
-      nav { padding: 1rem 1.2rem; }
-      .nav-links { gap: 1.2rem; }
-      .nav-links a { font-size: .8rem; }
       #o-nas .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .product-body { grid-template-columns: 1fr; padding: 1.8rem; }
+      .product-body { grid-template-columns: 1fr; padding: 1.6rem; }
       .product-specs { min-width: unset; }
       .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .gallery-main { aspect-ratio: 4/3; }
@@ -237,20 +278,27 @@
   </div>
 </div>
 
+<!-- SCROLL TO TOP -->
+<button id="totop" aria-label="Zpět nahoru">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#hero">
-    <svg viewBox="0 0 60 72" fill="none">
-      <path d="M30 2C30 2 14 20 14 36C14 44.837 21.163 52 30 52C38.837 52 46 44.837 46 36C46 28 38 22 38 22C38 22 40 30 34 34C34 34 36 24 30 18C30 18 28 28 22 30C22 30 22 20 30 2Z" fill="#D44E1A"/>
-      <path d="M30 40C30 40 24 36 24 42C24 45.314 26.686 48 30 48C33.314 48 36 45.314 36 42C36 38 32 36 32 36C32 36 32 40 30 40Z" fill="#E8701A"/>
-    </svg>
-    <span class="nav-logo-text">FLAMBRO</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#o-nas">O nás</a></li>
-    <li><a href="#prislusenstvi">Příslušenství</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">
+      <svg viewBox="0 0 60 72" fill="none">
+        <path d="M30 2C30 2 14 20 14 36C14 44.837 21.163 52 30 52C38.837 52 46 44.837 46 36C46 28 38 22 38 22C38 22 40 30 34 34C34 34 36 24 30 18C30 18 28 28 22 30C22 30 22 20 30 2Z" fill="#D44E1A"/>
+        <path d="M30 40C30 40 24 36 24 42C24 45.314 26.686 48 30 48C33.314 48 36 45.314 36 42C36 38 32 36 32 36C32 36 32 40 30 40Z" fill="#E8701A"/>
+      </svg>
+      <span class="nav-logo-text">FLAMBRO</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#o-nas">O nás</a></li>
+      <li><a href="#prislusenstvi">Příslušenství</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -277,11 +325,11 @@
     <div class="reveal">
       <span class="section-label">O nás</span>
       <h2 class="section-title">Jsme<br>FLAMBRO.</h2>
-      <div class="divider" style="margin:1.2rem 0;"></div>
-      <p class="section-body">
+      <div class="divider"></div>
+      <p style="font-size:1.1rem; color:var(--warm); max-width:580px;">
         Začínali jsme s grily. Dnes nabízíme příslušenství ke grilování a věci do domácnosti,
-        které vznikají ručně a s hlavou. Grily jsme odložili – ale oheň v nás nevyhasl.
-        Flambro je stále o tom, co dává smysl. Co sami používáme. Co se vyrábí postupně, bez kompromisů.
+        které vznikají ručně a s hlavou. Vyrábíme z Uherského Brodu – pomalu, postupně,
+        bez kompromisů.
       </p>
     </div>
     <div class="o-nas-values reveal">
@@ -307,13 +355,23 @@
     <div class="reveal">
       <span class="section-label">Příslušenství</span>
       <h2 class="section-title">Co teď nabízíme</h2>
-      <div class="divider" style="margin:1.2rem 0 0;"></div>
+      <div class="divider"></div>
     </div>
 
-    <div class="product-card reveal">
+    <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  PŘIDÁNÍ DALŠÍHO PRODUKTU                                       ║
+    ║  1. Zkopíruj celý blok <article class="product-card"> níže     ║
+    ║  2. Změň data-folder="bedynky" na složku s novými fotkami      ║
+    ║  3. Uprav název, popis, specifikace a cenu                      ║
+    ║  4. Nahraj fotky do nové složky + vytvoř photos.json           ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    -->
+
+    <article class="product-card reveal" data-folder="bedynky">
       <div class="gallery-wrap">
-        <div class="gallery-main" id="gallery-main">
-          <div class="gallery-placeholder" id="gallery-placeholder">
+        <div class="gallery-main">
+          <div class="gallery-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
               <rect x="3" y="3" width="18" height="18" rx="2"/>
               <circle cx="8.5" cy="8.5" r="1.5"/>
@@ -322,21 +380,19 @@
             <span>fotografie brzy</span>
           </div>
         </div>
-        <div class="gallery-thumbs" id="gallery-thumbs" style="display:none;"></div>
+        <div class="gallery-thumbs" style="display:none;"></div>
       </div>
-
       <div class="product-body">
         <div>
-          <h3 class="product-name">Dřevěný truhlík<br>na rostliny</h3>
+          <h2 class="product-name">Dřevěný truhlík<br>na rostliny</h2>
           <p class="product-desc">
-            Masivní dřevěný truhlík pro bylinky, okrasné rostliny nebo muškáty.
-            Navržený tak, aby rostliny nebyly schované na parapetu, ale měly své místo tam,
-            kde dávají smysl – v kuchyni, na baru, terase nebo u kavárny.
+            Masivní dřevěný truhlík pro bylinky, okrasné rostliny nebo muškáty –
+            ke grilu na terasu i do kuchyně. Rostliny mají své místo tam, kde dávají smysl:
+            na baru, v restauraci, v kavárně nebo doma.
           </p>
           <p class="product-desc" style="margin-top:.8rem;">
-            Vnitřek je vyložen nepropustnou plachtou, která odděluje zeminu od dřeva,
-            spoje jsou přetěsněny silikonem. Truhlík je odolnější a trvanlivější
-            než běžné dřevěné bedýnky.
+            Vnitřek je vyložen nepropustnou plachtou, spoje přetěsněny silikonem.
+            Truhlík je odolnější a trvanlivější než běžné dřevěné bedýnky z obchodu.
           </p>
           <div class="product-features">
             <span class="feature-tag">Masivní dřevo</span>
@@ -359,10 +415,38 @@
           <div class="spec-row"><span class="spec-label">Povrch</span><span class="spec-val">Lazura</span></div>
           <div class="spec-row"><span class="spec-label">Ochrana vnit.</span><span class="spec-val">Plachta + silikon</span></div>
           <div class="spec-row"><span class="spec-label">Určení</span><span class="spec-val">Interiér / krytý ext.</span></div>
-          <div class="spec-row"><span class="spec-label">Výroba</span><span class="spec-val">Ručně</span></div>
+          <div class="spec-row"><span class="spec-label">Výroba</span><span class="spec-val">Ručně · Uherský Brod</span></div>
         </div>
       </div>
-    </div>
+    </article>
+
+    <!-- DRUHÝ PRODUKT – příklad (odkomentuj a uprav) -->
+    <!--
+    <article class="product-card reveal" data-folder="dalsi-produkt">
+      <div class="gallery-wrap">
+        <div class="gallery-main">
+          <div class="gallery-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span>fotografie brzy</span>
+          </div>
+        </div>
+        <div class="gallery-thumbs" style="display:none;"></div>
+      </div>
+      <div class="product-body">
+        <div>
+          <h2 class="product-name">Název produktu</h2>
+          <p class="product-desc">Popis produktu...</p>
+          <div class="price-block">
+            <div class="price">XXX Kč <small>/ kus</small></div>
+            <a class="btn btn-primary" href="#kontakt">Mám zájem</a>
+          </div>
+        </div>
+        <div class="product-specs">
+          <div class="spec-row"><span class="spec-label">Materiál</span><span class="spec-val">...</span></div>
+        </div>
+      </div>
+    </article>
+    -->
 
     <p class="note reveal" style="text-align:center; margin-top:2rem;">
       Do budoucna se mohou objevit další doplňky – vždy jen to, co sami používáme a co dává smysl.
@@ -376,7 +460,7 @@
     <div class="reveal">
       <span class="section-label">Kontakt</span>
       <h2 class="section-title">Máš zájem?<br>Napiš nám.</h2>
-      <div class="divider" style="margin:1.2rem 0 0;"></div>
+      <div class="divider"></div>
     </div>
     <div class="contact-grid">
       <div class="contact-method reveal">
@@ -385,15 +469,7 @@
           <div class="contact-item-content">
             <h4>E-mail</h4>
             <a href="mailto:flambro@email.cz">flambro@email.cz</a>
-            <p style="font-size:.9rem;margin-top:.2rem;">Preferujeme e-mailovou korespondenci.</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">&#9990;</div>
-          <div class="contact-item-content">
-            <h4>Telefon / SMS</h4>
-            <a href="tel:+420735025755">+420 735 025 755</a>
-            <p style="font-size:.9rem;margin-top:.2rem;">Prosím SMS, odpíšeme co nejdříve.</p>
+            <p style="font-size:.9rem;margin-top:.2rem;">Napište nám – odpovíme co nejdříve.</p>
           </div>
         </div>
         <div class="contact-item">
@@ -408,12 +484,12 @@
       <div class="contact-info-box reveal">
         <h3>Jak to funguje</h3>
         <p>
-          Napiš nám e-mailem nebo SMS, co tě zajímá a kolik kusů bys chtěl.
+          Napište nám e-mailem co vás zajímá a kolik kusů byste chtěli.
           Mrkneme, co máme aktuálně k dispozici, a domluvíme se.<br><br>
           Dopravu zajistíme přes <span class="highlight">DPD, PPL nebo Zásilkovnu</span>.
           Platbu za zboží i poštovné požadujeme předem.<br><br>
-          Nebo si přijď pro truhlíky osobně do <span class="highlight">Uherského Brodu</span> –
-          domluvíme termín, rádi se potkáme.
+          Nebo si přijďte pro truhlíky osobně do <span class="highlight">Uherského Brodu</span> –
+          domluvíme termín.
         </p>
         <div style="margin-top:1.8rem;">
           <a class="btn btn-primary" href="mailto:flambro@email.cz">Napsat e-mail</a>
@@ -435,59 +511,59 @@
 </footer>
 
 <script>
-// ── GALERIE + LIGHTBOX ──────────────────────────────────────────────
-let allPhotos = [];
-let lbIndex   = 0;
+// ── GALERIE – načte každou kartu zvlášť podle data-folder ──────────────
+let lightboxPhotos = [];
+let lbIndex = 0;
 
-async function loadGallery() {
-  try {
-    const res = await fetch('bedynky/photos.json');
-    if (!res.ok) return;
-    const list = await res.json();
-    if (!list || list.length === 0) return;
-    allPhotos = list.map(n => 'bedynky/' + n);
-    buildGallery();
-  } catch { /* soubor neexistuje – zůstane placeholder */ }
-}
+document.querySelectorAll('.product-card[data-folder]').forEach(card => {
+  const folder = card.getAttribute('data-folder');
+  const mainEl   = card.querySelector('.gallery-main');
+  const thumbsEl = card.querySelector('.gallery-thumbs');
+  const phEl     = card.querySelector('.gallery-placeholder');
 
-function buildGallery() {
-  const mainEl   = document.getElementById('gallery-main');
-  const thumbsEl = document.getElementById('gallery-thumbs');
-  document.getElementById('gallery-placeholder').remove();
+  fetch(folder + '/photos.json')
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(list => {
+      if (!list || list.length === 0) return;
+      const photos = list.map(n => folder + '/' + n);
 
-  // Hlavní fotka
-  const mainImg = document.createElement('img');
-  mainImg.src = allPhotos[0];
-  mainImg.alt = 'Dřevěný truhlík Flambro';
-  mainImg.addEventListener('click', () => openLightbox(0));
-  mainEl.appendChild(mainImg);
+      // Hlavní fotka
+      phEl.remove();
+      const mainImg = document.createElement('img');
+      mainImg.src = photos[0];
+      mainImg.alt = card.querySelector('.product-name').textContent.trim();
+      mainImg.addEventListener('click', () => openLightbox(photos, 0));
+      mainEl.appendChild(mainImg);
 
-  // Max 3 miniatury (fotky 1–3)
-  if (allPhotos.length > 1) {
-    const count = Math.min(allPhotos.length - 1, 3);
-    thumbsEl.style.display = 'grid';
-    for (let i = 0; i < count; i++) {
-      const idx   = i + 1;
-      const div   = document.createElement('div');
-      div.className = 'gallery-thumb';
-      const img   = document.createElement('img');
-      img.src = allPhotos[idx];
-      img.alt = 'Truhlík Flambro – foto ' + (idx + 1);
-      div.appendChild(img);
-      // Přebývající fotky: badge na poslední miniaturě
-      if (i === count - 1 && allPhotos.length > 4) {
-        const badge = document.createElement('div');
-        badge.className = 'thumb-more';
-        badge.textContent = '+' + (allPhotos.length - 4);
-        div.appendChild(badge);
+      // Max 3 miniatury
+      if (photos.length > 1) {
+        const count = Math.min(photos.length - 1, 3);
+        thumbsEl.style.display = 'grid';
+        for (let i = 0; i < count; i++) {
+          const idx = i + 1;
+          const div = document.createElement('div');
+          div.className = 'gallery-thumb';
+          const img = document.createElement('img');
+          img.src = photos[idx];
+          img.alt = 'Foto ' + (idx + 1);
+          div.appendChild(img);
+          if (i === count - 1 && photos.length > 4) {
+            const badge = document.createElement('div');
+            badge.className = 'thumb-more';
+            badge.textContent = '+' + (photos.length - 4);
+            div.appendChild(badge);
+          }
+          div.addEventListener('click', () => openLightbox(photos, idx));
+          thumbsEl.appendChild(div);
+        }
       }
-      div.addEventListener('click', () => openLightbox(idx));
-      thumbsEl.appendChild(div);
-    }
-  }
-}
+    })
+    .catch(() => { /* photos.json neexistuje – zůstane placeholder */ });
+});
 
-function openLightbox(index) {
+// ── LIGHTBOX ──────────────────────────────────────────────────────────
+function openLightbox(photos, index) {
+  lightboxPhotos = photos;
   lbIndex = index;
   renderLb();
   document.getElementById('lightbox').classList.add('open');
@@ -498,13 +574,11 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 function renderLb() {
-  const img = document.getElementById('lb-img');
-  img.src   = allPhotos[lbIndex];
-  img.alt   = 'Flambro truhlík – foto ' + (lbIndex + 1);
-  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + allPhotos.length;
+  document.getElementById('lb-img').src = lightboxPhotos[lbIndex];
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lightboxPhotos.length;
 }
-function lbPrev() { lbIndex = (lbIndex - 1 + allPhotos.length) % allPhotos.length; renderLb(); }
-function lbNext() { lbIndex = (lbIndex + 1) % allPhotos.length; renderLb(); }
+function lbPrev() { lbIndex = (lbIndex - 1 + lightboxPhotos.length) % lightboxPhotos.length; renderLb(); }
+function lbNext() { lbIndex = (lbIndex + 1) % lightboxPhotos.length; renderLb(); }
 
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
 document.getElementById('lb-prev').addEventListener('click', lbPrev);
@@ -517,12 +591,17 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') lbNext();
 });
 
-loadGallery();
+// ── SCROLL TO TOP ─────────────────────────────────────────────────────
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', () => {
+  totop.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+totop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// ── SCROLL REVEAL ────────────────────────────────────────────────────
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(r => io.observe(r));
 </script>
 </body>
